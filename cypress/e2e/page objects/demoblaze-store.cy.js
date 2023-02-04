@@ -30,25 +30,49 @@ export class StorePage {
   }
 
   //clicks on an item
-  clickOnItem(itemIndex){
+  clickOnItem(itemIndex) {
     cy.get(".card > a").eq(itemIndex).click();
-    cy.contains("Add to cart").should("have.text","Add to cart")
-
+    cy.contains("Add to cart").should("have.text", "Add to cart");
   }
 
   //add item to cart
-  addToCart(){
-    cy.get("a").contains("Add to cart").click()
+  addToCart() {
+    cy.get("a").contains("Add to cart").click();
   }
 
   //select category
-  selectCategory(categoryName){
+  selectCategory(categoryName) {
     cy.get("a.list-group-item").contains(categoryName).click();
     //verification: takes the name of the category entered,converts to lowercase and removes the last char
     //Since <p> tag ought to contain the name of the category but may not in plural form.
-    categoryName = categoryName.toLowerCase().substring(0,categoryName.length-1)
+    categoryName = categoryName
+      .toLowerCase()
+      .substring(0, categoryName.length - 1);
     //there are multiple elements with .card-text class. Rather than changing the locator,
     //eq is chained and located the first element with .card-text and verified it contains the name entered.
-    cy.get(".card-text").eq(0).should("contain.text",categoryName)
+    cy.get(".card-text").eq(0).should("contain.text", categoryName);
+  }
+
+  //go to next page
+  goToNext() {
+    cy.get("#next2").contains("Next").click();
+  }
+
+  //go to previous page
+  goToPrevious() {
+    cy.get("#prev2").contains("Previous").click();
+  }
+
+  //go to cart
+  goToCart(){
+    cy.contains("Cart").click();
+    cy.get("h2").contains("Products").should("be.visible");
+    //alternatively;  cy.contains("Total")
+
+  }
+
+  //place order
+  placeOrder(){
+
   }
 }
