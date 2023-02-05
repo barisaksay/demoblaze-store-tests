@@ -32,7 +32,7 @@ describe("demoblaze store test suite", () => {
     storePage.goToCart()
   });
 
-  it("should click on a product", () => {
+  it.only("should click on an item", () => {
     storePage.navigate();
     storePage.clickOnItem(1);
   });
@@ -73,7 +73,7 @@ describe("demoblaze store test suite", () => {
     cy.get("button").contains("Send message").click();
   });
 
-  it.only("should place order successfully",()=>{
+  it("should place order successfully",()=>{
     storePage.navigate();
     storePage.clickOnItem(1);
     storePage.addToCart()
