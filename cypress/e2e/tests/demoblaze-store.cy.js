@@ -2,6 +2,8 @@
 
 import { StorePage } from "../page objects/demoblaze-store.cy";
 
+require ("../../support/commands") 
+
 describe("demoblaze store test suite", () => {
   const storePage = new StorePage();
 
@@ -14,17 +16,20 @@ describe("demoblaze store test suite", () => {
 
   it("should login", () => {
     storePage.navigate();
-    storePage.login(username, password);
+    //storePage.login(username, password);
+    cy.login(username,password)
   });
 
-  it("should log out a logged in user", () => {
+  it.only("should log out a logged in user", () => {
     storePage.navigate();
-    storePage.login(username, password);
+    //storePage.login(username, password);
+    cy.login(username,password)
     //wait command is used just in order to wait for page to reload after the login action.
     //Therefore acting as a prevention against possibılty of failing the logOut action due to not being
     //able to find the LogOut button.
     cy.wait(2000);
-    storePage.logout();
+    //storePage.logout();
+    cy.logout()
   });
 
   it("should go to cart", () => {
@@ -32,7 +37,7 @@ describe("demoblaze store test suite", () => {
     storePage.goToCart()
   });
 
-  it.only("should click on an item", () => {
+  it("should click on an item", () => {
     storePage.navigate();
     storePage.clickOnItem(1);
   });
@@ -84,4 +89,6 @@ describe("demoblaze store test suite", () => {
     storePage.navigate()
     
   })
+
+ 
 });
