@@ -1,3 +1,4 @@
+
 export class StorePage {
   //navigates to store homepage
   navigate() {
@@ -31,6 +32,17 @@ export class StorePage {
 
   //clicks on an item
   clickOnItem(itemIndex) {
+
+    //reads the name of the item before performing the click action. Trying to find a way
+    //to re-use this piece (itemTitleText variable) outside of the scope for verification
+    //ex: Read the name here, store it and use it to compare if it is the correct item after 
+    //adding it to the cart and navigating to cart page. Whether correct item is added to the cart.
+    cy.get(".card .card-title > a").eq(itemIndex)
+      .then(itemTitle=>{
+        const itemTitleText = itemTitle.text()
+        console.log(itemTitleText)
+      })
+
     cy.get(".card > a").eq(itemIndex).click();
     cy.contains("Add to cart").should("have.text", "Add to cart");
   }
