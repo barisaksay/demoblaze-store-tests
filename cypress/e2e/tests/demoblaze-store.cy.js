@@ -15,24 +15,36 @@ describe("demoblaze store test suite", () => {
   it("should login", () => {
     storePage.navigate();
     storePage.login(username, password);
+    cy.get("a[data-target='#signInModal']")
+      .contains("Sign up")
+      .should("not.be.visible");
   });
 
   it("should log out a logged in user", () => {
     storePage.navigate();
     storePage.login(username, password);
+    cy.get("a[data-target='#signInModal']")
+      .contains("Sign up")
+      .should("not.be.visible");
     //wait command is used just in order to wait for page to reload after the login action.
-    //Therefore acting as a prevention against possibılty of failing the logOut action due to not being
+    //Therefore acting as a prevention against possibility of failing the logOut action due to not being
     //able to find the LogOut button.
     cy.wait(2000);
     storePage.logout();
   });
 
-  it("should go to cart", () => {
-    storePage.navigate()
-    storePage.goToCart()
+  it("should not login with wrong credentials", () => {
+    storePage.navigate();
+    storePage.login(username, "test");
+    cy.get("[class='nav-link']").contains("Log in").should("be.visible");
   });
 
-  it.only("should click on an item", () => {
+  it("should go to cart", () => {
+    storePage.navigate();
+    storePage.goToCart();
+  });
+
+  it("should click on an item", () => {
     storePage.navigate();
     storePage.clickOnItem(1);
   });
@@ -73,15 +85,19 @@ describe("demoblaze store test suite", () => {
     cy.get("button").contains("Send message").click();
   });
 
-  it("should place order successfully",()=>{
+  it("should place order successfully", () => {
     storePage.navigate();
     storePage.clickOnItem(1);
-    storePage.addToCart()
-    storePage.goToCart()
-  })
+    storePage.addToCart();
+    storePage.goToCart();
+  });
 
-  it("should remove item from the cart",()=>{
-    storePage.navigate()
-    
-  })
+  it.only("should remove item from the cart", () => {
+    storePage.navigate();
+    storePage.clickOnItem(1);
+    storePage.addToCart();
+    storePage.goToCart();
+    cy.wait(2000)
+    cy.get("a").contains("Delete").click()
+  });
 });

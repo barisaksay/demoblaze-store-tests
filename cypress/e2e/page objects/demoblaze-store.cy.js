@@ -13,11 +13,6 @@ export class StorePage {
     cy.get("[id='loginusername']").type(username);
     cy.get("[id='loginpassword']").type(password);
     cy.get(".modal-footer button[onclick='logIn()']").click();
-    //below is verification:  should this line be taken out of the prototype and used in the test
-    //file directly for better usability of the prototype ?
-    cy.get("a[data-target='#signInModal']")
-      .contains("Sign up")
-      .should("not.be.visible");
   }
 
   //logs out a logged in user
@@ -77,7 +72,7 @@ export class StorePage {
 
   //go to cart
   goToCart(){
-    cy.contains("Cart").click();
+    cy.get("[class='nav-link']").contains("Cart").click();
     cy.get("h2").contains("Products").should("be.visible");
     //alternatively;  cy.contains("Total")
 
