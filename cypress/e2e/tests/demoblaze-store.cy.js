@@ -85,14 +85,25 @@ describe("demoblaze store test suite", () => {
     cy.get("button").contains("Send message").click();
   });
 
-  it("should place order successfully", () => {
+  it.only("should place order successfully", () => {
     storePage.navigate();
     storePage.clickOnItem(1);
     storePage.addToCart();
     storePage.goToCart();
+      cy.contains("Place Order").click()
+      cy.wait(1000)
+      cy.get('#name').click().type("Ross Geller")
+      cy.wait(1000)
+      cy.get('#country').type("USA")
+      cy.get('#city').type("New York")
+      cy.get('#card').type("1234546678")
+      cy.get('#month').type("01")
+      cy.get('#year').type("2030")
+      cy.contains('Purchase').click()
+      cy.contains("h2","Thank you for your purchase!") //verif.
   });
 
-  it.only("should remove item from the cart", () => {
+  it("should remove item from the cart", () => {
     storePage.navigate();
     storePage.clickOnItem(1);
     storePage.addToCart();
