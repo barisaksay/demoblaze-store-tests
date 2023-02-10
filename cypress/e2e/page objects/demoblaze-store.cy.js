@@ -80,6 +80,17 @@ export class StorePage {
 
   //place order
   placeOrder(){
+    cy.contains("Place Order").click()
+    cy.wait(1000)
+    cy.get('#name').click().type("Ross Geller")
+    cy.wait(1000)
+    cy.get('#country').type("USA")
+    cy.get('#city').type("New York")
+    cy.get('#card').type("1234546678")
+    cy.get('#month').type("01")
+    cy.get('#year').type("2030")
+    cy.contains('Purchase').click()
+    cy.contains("h2","Thank you for your purchase!") //verif.
 
   }
 }
