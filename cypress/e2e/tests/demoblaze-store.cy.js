@@ -17,14 +17,14 @@ describe("demoblaze store test suite", () => {
   });
 
   it("should login", () => {
-    storePage.login(username, password);
+    cy.login(username, password);
     cy.get("a[data-target='#signInModal']")
       .contains("Sign up")
       .should("not.be.visible");
   });
 
   it("should log out a logged in user", () => {
-    storePage.login(username, password);
+    cy.login(username, password);
     cy.get("a[data-target='#signInModal']")
       .contains("Sign up")
       .should("not.be.visible");
@@ -32,12 +32,12 @@ describe("demoblaze store test suite", () => {
     //Therefore acting as a prevention against possibility of failing the logOut action due to not being
     //able to find the LogOut button.
     cy.wait(2000);
-    storePage.logout();
+    cy.logout();
   });
 
   it("should not login with wrong credentials", () => {
     
-    storePage.login(username, "test");
+    cy.login(username, "test");
     cy.get("[class='nav-link']").contains("Log in").should("be.visible");
   });
 
