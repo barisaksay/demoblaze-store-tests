@@ -8,12 +8,15 @@ describe("demoblaze store test suite", () => {
   const username = "QA-test";
   const password = "!12BN";
 
-  it("should go to home page", () => {
+  beforeEach(()=>{
     storePage.navigate();
+
+  })
+
+  it("should go to home page", () => {
   });
 
   it("should login", () => {
-    storePage.navigate();
     storePage.login(username, password);
     cy.get("a[data-target='#signInModal']")
       .contains("Sign up")
@@ -21,7 +24,6 @@ describe("demoblaze store test suite", () => {
   });
 
   it("should log out a logged in user", () => {
-    storePage.navigate();
     storePage.login(username, password);
     cy.get("a[data-target='#signInModal']")
       .contains("Sign up")
@@ -34,34 +36,32 @@ describe("demoblaze store test suite", () => {
   });
 
   it("should not login with wrong credentials", () => {
-    storePage.navigate();
+    
     storePage.login(username, "test");
     cy.get("[class='nav-link']").contains("Log in").should("be.visible");
   });
 
   it("should go to cart", () => {
-    storePage.navigate();
+    
     storePage.goToCart();
   });
 
   it("should click on an item", () => {
-    storePage.navigate();
+    
     storePage.clickOnItem(1);
   });
 
   it("should add the selected item to the cart", () => {
-    storePage.navigate();
+    
     storePage.clickOnItem(1);
     storePage.addToCart();
   });
 
   it("should change category", () => {
-    storePage.navigate();
     storePage.selectCategory("Laptops");
   });
 
   it("should click next and previous page buttons", () => {
-    storePage.navigate();
     cy.get("#frm").scrollIntoView();
     storePage.goToNext();
     /*cy.get("#next2").should("not.be.visible")  
@@ -85,8 +85,7 @@ describe("demoblaze store test suite", () => {
     cy.get("button").contains("Send message").click();
   });
 
-  it.only("should place order successfully", () => {
-    storePage.navigate();
+  it("should place order successfully", () => {
     storePage.clickOnItem(1);
     storePage.addToCart();
     storePage.goToCart();
@@ -94,7 +93,6 @@ describe("demoblaze store test suite", () => {
   });
 
   it("should remove item from the cart", () => {
-    storePage.navigate();
     storePage.clickOnItem(1);
     storePage.addToCart();
     storePage.goToCart();
